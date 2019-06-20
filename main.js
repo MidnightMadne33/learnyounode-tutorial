@@ -25,10 +25,31 @@
 
 //Exercise 4
 
+// var fs = require('fs');
+// fs.readFile(process.argv[2], function(err, buff){
+//   if(!err){
+//     var count = buff.toString().split('\n').length - 1;
+//     console.log(count);
+//   }
+// })
+
+/*  ********************************************* */
+
+//Exercise 5
+
 var fs = require('fs');
-fs.readFile(process.argv[2], function(err, buff){
+var path = require('path');
+var ext = '.' + process.argv[3];
+var fileListExt = [];
+fs.readdir(process.argv[2], function(err, list){
   if(!err){
-    var count = buff.toString().split('\n').length - 1;
-    console.log(count);
+    list.forEach(file => {
+      if(path.extname(file) === ext){
+        fileListExt.push(file);
+      }
+    });
+    fileListExt.forEach(file => {
+      console.log(file);
+    });
   }
-})
+});
