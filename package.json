@@ -1,0 +1,22 @@
+{
+  "name": "learnyounode",
+  "version": "1.0.0",
+  "description": "A tutorial to introduce to NodeJS",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MidnightMadne33/learnyounode-tutorial.git"
+  },
+  "author": "Ankit Anurag",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MidnightMadne33/learnyounode-tutorial/issues"
+  },
+  "homepage": "https://github.com/MidnightMadne33/learnyounode-tutorial#readme",
+  "dependencies": {
+    "concat-stream": "^2.0.0"
+  }
+}
