@@ -58,14 +58,26 @@
 
 //Exercise 6
 
-var mod = require('./moduleA');
+// var mod = require('./moduleA');
 
-mod(process.argv[2], process.argv[3], function(err, list){
-    if(err){
-      return console.error('Error : ', err);
-    }
-    list.forEach(file => {
-      console.log(file);
-    });
-  }
-);
+// mod(process.argv[2], process.argv[3], function(err, list){
+//     if(err){
+//       return console.error('Error : ', err);
+//     }
+//     list.forEach(file => {
+//       console.log(file);
+//     });
+//   }
+// );
+
+/*  ********************************************* */
+
+//Exercise 7
+
+var http = require('http');
+const url = process.argv[2];
+
+http.get(url, function(response){
+  response.setEncoding('utf8').on("data", console.log)
+    .on("error", console.error);
+});
