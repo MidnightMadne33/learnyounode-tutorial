@@ -37,19 +37,35 @@
 
 //Exercise 5
 
-var fs = require('fs');
-var path = require('path');
-var ext = '.' + process.argv[3];
-var fileListExt = [];
-fs.readdir(process.argv[2], function(err, list){
-  if(!err){
+// var fs = require('fs');
+// var path = require('path');
+// var ext = '.' + process.argv[3];
+// var fileListExt = [];
+// fs.readdir(process.argv[2], function(err, list){
+//   if(!err){
+//     list.forEach(file => {
+//       if(path.extname(file) === ext){
+//         fileListExt.push(file);
+//       }
+//     });
+//     fileListExt.forEach(file => {
+//       console.log(file);
+//     });
+//   }
+// });
+
+/*  ********************************************* */
+
+//Exercise 6
+
+var mod = require('./moduleA');
+
+mod(process.argv[2], process.argv[3], function(err, list){
+    if(err){
+      return console.error('Error : ', err);
+    }
     list.forEach(file => {
-      if(path.extname(file) === ext){
-        fileListExt.push(file);
-      }
-    });
-    fileListExt.forEach(file => {
       console.log(file);
     });
   }
-});
+);
