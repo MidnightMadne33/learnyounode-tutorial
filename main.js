@@ -74,10 +74,25 @@
 
 //Exercise 7
 
+// var http = require('http');
+// const url = process.argv[2];
+
+// http.get(url, function(response){
+//   response.setEncoding('utf8').on("data", console.log)
+//     .on("error", console.error);
+// });
+
+/*  ********************************************* */
+
+//Exercise 8
+
+var concat = require('concat-stream');
 var http = require('http');
 const url = process.argv[2];
 
-http.get(url, function(response){
-  response.setEncoding('utf8').on("data", console.log)
-    .on("error", console.error);
+http.get(url, (response) => {
+  response.pipe(concat((data) => {
+    console.log(data.length);
+    console.log(data.toString());
+  }));
 });
