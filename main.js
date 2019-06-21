@@ -154,11 +154,30 @@
 
 //Exercise 11
 
+// var http = require('http');
+// var fs = require('fs');
+
+// var server = http.createServer((req, res) => {
+//   res.writeHead(200, {'content-type' : 'text/plain'});
+//   fs.createReadStream(process.argv[3], {encoding:'utf8'}).pipe(res);
+// });
+// server.listen(Number(process.argv[2]));
+
+/*  ********************************************* */
+
+//Exercise 12
+
 var http = require('http');
-var fs = require('fs');
+var map = require('through2-map');
 
 var server = http.createServer((req, res) => {
-  res.writeHead(200, {'content-type' : 'text/plain'});
-  fs.createReadStream(process.argv[3], {encoding:'utf8'}).pipe(res);
+
+  if(req.method !== 'POST'){
+    return res.end('Not a POST request.')
+  }
+
+  req.pipe(map(data => {
+    return data.toString().toUpperCase();
+  })).pipe(res);
 });
 server.listen(Number(process.argv[2]));
