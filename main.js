@@ -86,13 +86,46 @@
 
 //Exercise 8
 
-var concat = require('concat-stream');
-var http = require('http');
-const url = process.argv[2];
+// var concat = require('concat-stream');
+// var http = require('http');
+// const url = process.argv[2];
 
-http.get(url, (response) => {
-  response.pipe(concat((data) => {
-    console.log(data.length);
+// http.get(url, (response) => {
+//   response.pipe(concat((data) => {
+//     console.log(data.length);
+//     console.log(data.toString());
+//   }));
+// });
+
+/*  ********************************************* */
+
+//Exercise 9
+
+var http = require('http');
+var bl = require('bl');
+const url = process.argv.slice(2,);
+
+http.get(url[0], response => {
+  response.pipe(bl((err, data) => {
+    if(err){
+      return console.error('Error : ', err);
+    }
     console.log(data.toString());
-  }));
-});
+    http.get(url[1], response => {
+      response.pipe(bl((err, data) => {
+        if(err){
+          return console.error('Error : ', err);
+        }
+        console.log(data.toString());
+        http.get(url[2], response => {
+          response.pipe(bl((err, data) => {
+            if(err){
+              return console.error('Error : ', err);
+            }
+            console.log(data.toString());
+          }))
+        })
+      }))
+    })
+  }))
+})
