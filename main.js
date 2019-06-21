@@ -101,31 +101,51 @@
 
 //Exercise 9
 
-var http = require('http');
-var bl = require('bl');
-const url = process.argv.slice(2,);
+// var http = require('http');
+// var bl = require('bl');
+// const url = process.argv.slice(2,);
 
-http.get(url[0], response => {
-  response.pipe(bl((err, data) => {
-    if(err){
-      return console.error('Error : ', err);
-    }
-    console.log(data.toString());
-    http.get(url[1], response => {
-      response.pipe(bl((err, data) => {
-        if(err){
-          return console.error('Error : ', err);
-        }
-        console.log(data.toString());
-        http.get(url[2], response => {
-          response.pipe(bl((err, data) => {
-            if(err){
-              return console.error('Error : ', err);
-            }
-            console.log(data.toString());
-          }))
-        })
-      }))
-    })
-  }))
+// http.get(url[0], response => {
+//   response.pipe(bl((err, data) => {
+//     if(err){
+//       return console.error('Error : ', err);
+//     }
+//     console.log(data.toString());
+//     http.get(url[1], response => {
+//       response.pipe(bl((err, data) => {
+//         if(err){
+//           return console.error('Error : ', err);
+//         }
+//         console.log(data.toString());
+//         http.get(url[2], response => {
+//           response.pipe(bl((err, data) => {
+//             if(err){
+//               return console.error('Error : ', err);
+//             }
+//             console.log(data.toString());
+//           }))
+//         })
+//       }))
+//     })
+//   }))
+// })
+
+/*  ********************************************* */
+
+//Exercise 10
+
+var net = require('net');
+
+var server = net.createServer((socket) => {
+  var date = new Date();
+  var str = '';
+  str += date.getFullYear()
+    + '-' + ('0'+(date.getMonth() + 1)).slice(-2) 
+    + '-' + ('0' + date.getDate()).slice(-2)
+    + ' ' + ('0' + date.getHours()).slice(-2)  
+    + ':' + ('0' + date.getMinutes()).slice(-2) + '\n';
+  socket.write(str);
+  socket.end();
 })
+
+server.listen(process.argv[2]);
