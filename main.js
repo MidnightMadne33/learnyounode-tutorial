@@ -134,18 +134,31 @@
 
 //Exercise 10
 
-var net = require('net');
+// var net = require('net');
 
-var server = net.createServer((socket) => {
-  var date = new Date();
-  var str = '';
-  str += date.getFullYear()
-    + '-' + ('0'+(date.getMonth() + 1)).slice(-2) 
-    + '-' + ('0' + date.getDate()).slice(-2)
-    + ' ' + ('0' + date.getHours()).slice(-2)  
-    + ':' + ('0' + date.getMinutes()).slice(-2) + '\n';
-  socket.write(str);
-  socket.end();
-})
+// var server = net.createServer((socket) => {
+//   var date = new Date();
+//   var str = '';
+//   str += date.getFullYear()
+//     + '-' + ('0'+(date.getMonth() + 1)).slice(-2) 
+//     + '-' + ('0' + date.getDate()).slice(-2)
+//     + ' ' + ('0' + date.getHours()).slice(-2)  
+//     + ':' + ('0' + date.getMinutes()).slice(-2) + '\n';
+//   socket.write(str);
+//   socket.end();
+// })
 
-server.listen(process.argv[2]);
+// server.listen(process.argv[2]);
+
+/*  ********************************************* */
+
+//Exercise 11
+
+var http = require('http');
+var fs = require('fs');
+
+var server = http.createServer((req, res) => {
+  res.writeHead(200, {'content-type' : 'text/plain'});
+  fs.createReadStream(process.argv[3], {encoding:'utf8'}).pipe(res);
+});
+server.listen(Number(process.argv[2]));
