@@ -167,17 +167,49 @@
 
 //Exercise 12
 
+// var http = require('http');
+// var map = require('through2-map');
+
+// var server = http.createServer((req, res) => {
+
+//   if(req.method !== 'POST'){
+//     return res.end('Not a POST request.')
+//   }
+
+//   req.pipe(map(data => {
+//     return data.toString().toUpperCase();
+//   })).pipe(res);
+// });
+// server.listen(Number(process.argv[2]));
+
+/*  ********************************************* */
+
+//Exercise 13
+
 var http = require('http');
-var map = require('through2-map');
 
 var server = http.createServer((req, res) => {
-
-  if(req.method !== 'POST'){
-    return res.end('Not a POST request.')
+  if(req.method !== 'GET'){
+    return console.log('Not a GET request.');
   }
+  var url = require('url').parse(req.url, true);
+  var pathname = url.pathname;
+  var date = new Date(url.query.iso);
 
-  req.pipe(map(data => {
-    return data.toString().toUpperCase();
-  })).pipe(res);
+  res.writeHead(200, {'Content-Type':'application/json'});
+  var dateISORes = {
+    "hour" : date.getHours(),
+    "minute" : date.getMinutes(),
+    "second"  : date.getSeconds()
+  };
+  var dateUNIXRes = {
+    "unixtime" : date.getTime()
+  };
+  if(pathname === '/api/parsetime'){
+    res.end(JSON.stringify(dateISORes));
+  }
+  else if (pathname === '/api/unixtime'){
+    res.end(JSON.stringify(dateUNIXRes));
+  }
 });
 server.listen(Number(process.argv[2]));
